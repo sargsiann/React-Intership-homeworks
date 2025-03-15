@@ -350,4 +350,81 @@ function	removeDuplicates(arr){
 
 let arr = [{name : "Davo"},{name : "Davo"},{name : "Harut"},{name : "Harut"},{name : "Harut"},];
 
-console.log(removeDuplicates(arr));
+// console.log(removeDuplicates(arr));
+
+// --------------------------------------------------------------------------------
+
+// VARIABLES AND CONDITIONALS
+
+// 1).
+// var a = 10;
+// a++;
+
+// YETE ANENQ CONSOLE LOG A-N KLINI 11 ISK ETE ANENQ CONSOLE LOG A++ KLINI 10
+
+// 2).
+// let userName = 'da2kdhaad';
+// console.log(username);
+
+
+// KTA ERROR VOROVHETEV CHKA username js y Case sensitive a reference error kta
+
+// 3).
+// const USER_TYPE = 'admin';
+// USER_TYPE = 'user';
+
+// kta error vorovhetev chka consti arjeq@ chi kareli poxel
+
+// 4).
+// let 3name = 'adda'
+
+// kta error vorovhetev popoxakani anuny chi kara sksi tvov
+
+// 5).
+// 2 === 3 || 2 === '2' || 2 == '2'
+
+// KTA TRUE ARAJI 2 Y KLINEN FALSE 3RDY TRUE XIST HAMEMATUM CHI
+
+// 6).
+// 1 && !null - undefined || 4
+
+// !null - undefinedy kta NaN u ete miacnen NaN || 4 kta 4
+
+
+// 7).
+// 3 < 3 < 2 || !('2' + 1/NaN)
+
+// yst prioritetneri skzbic kstananq 3 < 3 -> false heto false < 2 -> 0 < 2 -> true miangamic true sax
+
+// !typeof typeof 1 || 5 === '5' || 'krecir'
+
+// typeof 1 -> number typeof number -> string !string -> false verjum klini 'krecir' et kveradardzni
+
+
+// 'help' && typof 'addaadad'
+
+// ERROR TYPOF OPERATOR CHKA
+
+// nuynnel hajordum typoef operator@ chka
+
+// let name = prompt("Enter your name");
+// 
+// console.log("Hello dear" + name);
+
+// let season = prompt("Enter the season");
+
+// if (season == "winter"){
+// 	console.log("Take warm clothes");
+// }
+// else if (season == "summer"){
+// 	console.log("you can go to the beach");
+// }
+// else if (season == "spring"){
+// 	console.log("trees are blossoming");
+// }
+// else if (season == "autumn"){
+// 	console.log("too many colors outside");
+// }
+// else{
+// 	console.log("Invalid season");
+// }
