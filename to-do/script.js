@@ -205,3 +205,12 @@ function	addTodo() {
 }
 
 addButton.onclick = addTodo;
+
+function a() {
+	let c = 0;
+	
+}
+
+let e = a();
+let f = a();
+
