@@ -21,13 +21,30 @@ function MyPromise(callback) {
 
     this.then = function (cb) {
         if (this.state === "fulfilled") {
-			queueMicrotask(cb(this.value));
+			let p = new MyPromise();	
+			try {
+				p.state = "fulfilled";
+				p.value = queueMicrotask(() => cb(this.value))
+			} catch (error) {
+				p.state = "rejected";
+				p.reason = error;
+			}
+			console.log(p);
+			return p;
 		}
     };
 
     this.catch = function (cb) {
         if (this.state === "rejected") {
-			queueMicrotask(cb(this.reason));
+			let p = new MyPromise();
+			try {
+				p.state = "fulfilled";
+				p.value = queueMicrotask(() => cb(this.value))
+			} catch (error) {
+				p.state = "rejected";
+				p.reason = error;
+			}	
+			return p;
 		}
     };
 
@@ -35,7 +52,12 @@ function MyPromise(callback) {
         console.log(this.state, this.value, this.reason);
     };
 
-    callback(this.resolve.bind(this), this.reject.bind(this));
+	this.finally = function() {
+		co
+	}
+
+	if (callback)
+    	callback(this.resolve.bind(this), this.reject.bind(this));
 }
 
 let p = new MyPromise((res,rej) => {
