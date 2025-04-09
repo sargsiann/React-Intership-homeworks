@@ -19,12 +19,21 @@ function MyPromise(callback) {
         }
     };
 
-    this.then = function (cb) {
+    this.then = function (cb,cb1) {
 		let reason = this.reason;
 		let value = this.value;
         return new MyPromise((res,rej) => {
 			if (this.state === "rejected") {
-				rej(reason)
+				if (cb1) {
+					try {
+						let v = cb && cb(reason);
+						res(v);
+					} catch (error) {
+						rej(error);
+					}
+				}
+				else
+					rej(reason);
 			}
 			else if (this.state === "fulfilled") {
 				try {
@@ -37,7 +46,7 @@ function MyPromise(callback) {
 		})
     };
 
-    this.catch = function (cb) {
+    this.catch =  function (cb) {
 		let reason = this.reason;
 		let value = this.value;
         return new MyPromise((res,rej) => {
@@ -77,4 +86,4 @@ let p = new MyPromise((res,rej) => {
 	throw "adadd";
 });
 
-p.then(console.log).catch(console.log).then(console.log).finally()
+p.then(console.log,console.log)
