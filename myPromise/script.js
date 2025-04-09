@@ -19,12 +19,44 @@ function MyPromise(callback) {
         }
     };
 
-    this.then = function (cb,cb1) {
+    this.then = function (cb, cb1) {
 		let reason = this.reason;
 		let value = this.value;
-        return new MyPromise((res,rej) => {
-			if (this.state === "rejected") {
-				if (cb1) {
+	
+		return new MyPromise((res, rej) => {
+			queueMicrotask(() => {
+				if (this.state === "rejected") {
+					if (cb1) {
+						try {
+							let v = cb1(reason);
+							res(v);
+						} catch (error) {
+							rej(error);
+						}
+					} else {
+						rej(reason);
+					}
+				} else if (this.state === "fulfilled") {
+					try {
+						let v = cb(value);
+						res(v);
+					} catch (error) {
+						rej(error);
+					}
+				}
+			});
+		});
+	}
+
+	this.catch = function (cb) {
+		let reason = this.reason;
+		let value = this.value;
+	
+		return new MyPromise((res, rej) => {
+			queueMicrotask(() => {
+				if (this.state === "fulfilled") {
+					res(value);
+				} else if (this.state === "rejected") {
 					try {
 						let v = cb && cb(reason);
 						res(v);
@@ -32,37 +64,10 @@ function MyPromise(callback) {
 						rej(error);
 					}
 				}
-				else
-					rej(reason);
-			}
-			else if (this.state === "fulfilled") {
-				try {
-					let v = cb && cb(value);
-					res(v);
-				} catch (error) {
-					rej(error);
-				}
-			}
-		})
-    };
-
-    this.catch =  function (cb) {
-		let reason = this.reason;
-		let value = this.value;
-        return new MyPromise((res,rej) => {
-			if (this.state === "fulfilled") {
-				res(value);
-			}
-			else if (this.state === "rejected") {
-				try {
-					let v = cb && cb(reason);
-					res(v);
-				} catch (error) {
-					rej(error);
-				}
-			}
-		})
-    };
+			});
+		});
+	};
+	
 
     this.getState = function () {
         console.log(this.state, this.value, this.reason);
