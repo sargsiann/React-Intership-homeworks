@@ -42,20 +42,26 @@ export	async	function	getBooks(field,param) {
 		clearTimeout(req_id);
 	let p = new Promise((res,rej) => {
 		req_id = setTimeout(() => {
-			let f = fetch(LIB_URL);
-			f.then((d) => d.json()).then((d) => {
-				let arr = getFilteredArr(field,param,d.docs);
-				res(arr.map((i) => {
-					let a = {
-						title : i.title,
-						id : i.cover_i,
-						coverURL : getBookCoverURL(i.cover_i,i.cover_edition_key),
-						pub_year : i.first_publish_year,
-						authors : i.author_name,
-					}
-					return a;
-				}));
-			});
+			try {
+				let f = fetch(LIB_URL);
+				f.then((d) => d.json()).then((d) => {
+					let arr = getFilteredArr(field,param,d.docs);
+					res(arr.map((i) => {
+						let a = {
+							title : i.title,
+							id : i.cover_i,
+							isFavorite : false,
+							coverURL : getBookCoverURL(i.cover_i,i.cover_edition_key),
+							pub_year : i.first_publish_year,
+							authors : i.author_name,
+						}
+						return a;
+					}));
+				});
+			}
+			catch(err) {
+				rej(err)
+			}
 		},1000);
 	})
 	return p;
