@@ -2,9 +2,6 @@ import { LIB_URL,PAGE_LIMIT,BOOKS_LIMIT } from "./consts"
 
 let	req_id = undefined;
 
-function	getCover(cover_id) {
-
-}
 
 export async	function	getAllBooks() {
 	// INITIALS
